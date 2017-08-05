@@ -22,7 +22,9 @@ class RedisApiConnTest extends TModule
          $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
              $params = [];
 
-             return Promise::doResolve()->then(function () use ($redis, $params) {});
+             return Promise::doResolve()->then(function () use ($redis, $params) {
+                 $this->markTestIncomplete();
+             });
          });
     }
 

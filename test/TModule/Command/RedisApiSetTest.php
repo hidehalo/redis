@@ -227,6 +227,7 @@ class RedisApiSetTest extends TModule
      */
     public function testRedis_sScan(RedisInterface $redis)
     {
+        $this->markTestIncomplete();
         $this->checkRedisVersionedCommand($redis, '2.8.0', function(RedisInterface $redis) {
             return Promise::doResolve()->then(function () use ($redis) {
                 //TODO: implementation

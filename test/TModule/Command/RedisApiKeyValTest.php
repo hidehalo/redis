@@ -842,6 +842,7 @@ class RedisApiKeyValTest extends TModule
             ];
             return Promise::doResolve()
                 ->then(function() use($params, $redis) {
+                    $this->markTestIncomplete();
                     // $redis->set($params['KEY'], $params['VAL']);
 
                     // return $redis->wait(1, 0);
@@ -968,7 +969,8 @@ class RedisApiKeyValTest extends TModule
     public function testRedis_Move(RedisInterface $redis)
     {
         //TODO: Implementation
-       $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
+        $this->markTestIncomplete();
+        $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
             $params = [
                 'KEY' => 'INPUT_KEY',
                 'VAL' => 1,
@@ -984,28 +986,32 @@ class RedisApiKeyValTest extends TModule
     }
 
       /**
-     * @group testing
+     * @group passed
      * @dataProvider redisProvider
      * @param RedisInterface $redis
      */
     public function testRedis_Scan(RedisInterface $redis)
     {
-        //TODO: Implementation
        $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
             $params = [
                 'KEY' => 'INPUT_KEY',
                 'VAL' => 1,
             ];
-            return Promise::doResolve()
-                ->then(function() use($params, $redis) {
-                })
-                ->then(function() use($params, $redis) {
-                })
-                ->then(function($value) use($params) {
-                });
-        }); 
+            return Promise::doResolve()->then(function() use($params, $redis) {
+                return $redis->set($params['KEY'], $params['VAL']);
+            })
+            ->then(function() use($params, $redis) {
+                return $redis->scan(0);
+            })
+            ->then(function($value) use($params) {
+                list($cursor, $elements) = $value;
+                $this->assertSame("0", $cursor);
+                $this->assertSame([$params['KEY']], $elements);
+            });
+       });
     }
-      /**
+
+    /**
      * @group testing
      * @dataProvider redisProvider
      * @param RedisInterface $redis
@@ -1013,19 +1019,16 @@ class RedisApiKeyValTest extends TModule
     public function testRedis_Sort(RedisInterface $redis)
     {
         //TODO: Implementation
-       $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
+        $this->markTestIncomplete();
+        $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
             $params = [
                 'KEY' => 'INPUT_KEY',
                 'VAL' => 1,
             ];
-            return Promise::doResolve()
-                ->then(function() use($params, $redis) {
-                })
-                ->then(function() use($params, $redis) {
-                })
-                ->then(function($value) use($params) {
-                });
-        }); 
+            return Promise::doResolve()->then(function() use($params, $redis) {
+                $redis->sort();
+            });
+        });
     }
     
     /**

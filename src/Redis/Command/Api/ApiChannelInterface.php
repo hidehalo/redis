@@ -15,11 +15,11 @@ interface ApiChannelInterface
     /**
      * @doc https://redis.io/commands/pubsub
      * @since 2.8.0
-     * @param $command
-     * @param array $args
+     * @param $subCommand
+     * @param ...$args
      * @return mixed
      */
-    public function pubSub($command, array $args = []);
+    public function pubSub($subCommand, ...$args);
 
     /**
      * @doc https://redis.io/commands/publish
@@ -36,7 +36,7 @@ interface ApiChannelInterface
      * @param ...$patterns
      * @return mixed
      */
-    public function pUnsubscribe(...$patterns);
+    public function pUnSubscribe(...$patterns);
 
     /**
      * @doc https://redis.io/commands/unsubscribe
@@ -49,8 +49,9 @@ interface ApiChannelInterface
     /**
      * @doc https://redis.io/commands/subscribe
      * @since 2.0.0
+     * @param $channel
      * @param ...$channels
      * @return mixed
      */
-    public function subscribe(...$channels);
+    public function subscribe($channel, ...$channels);
 }

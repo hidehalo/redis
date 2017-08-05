@@ -20,9 +20,8 @@ trait ApiChannelTrait
      */
     public function pSubscribe(...$patterns)
     {
-        // TODO: Implement pSubscribe() method.
         $command = Enum::PSUBSCRIBE;
-        $args = $patterns;
+        $args = $patterns?:[];
 
         return $this->dispatch(Builder::build($command, $args));
     }
@@ -31,10 +30,10 @@ trait ApiChannelTrait
      * @override
      * @inheritDoc
      */
-    public function pubSub($command, array $args = [])
+    public function pubSub($subCommand, ...$args)
     {
-        // TODO: Implement pubSub() method.
         $command = Enum::PUBSUB;
+        $args = array_merge([$subCommand], $args);
 
         return $this->dispatch(Builder::build($command, $args));
     }
@@ -45,7 +44,6 @@ trait ApiChannelTrait
      */
     public function publish($channel, $message)
     {
-        // TODO: Implement publish() method.
         $command = Enum::PUBLISH;
         $args = [$channel, $message];
 
@@ -56,11 +54,10 @@ trait ApiChannelTrait
      * @override
      * @inheritDoc
      */
-    public function pUnsubscribe(...$patterns)
+    public function pUnSubscribe(...$patterns)
     {
-        // TODO: Implement pUnsubscribe() method.
         $command = Enum::PUNSUBSCRIBE;
-        $args = $patterns;
+        $args = $patterns?:[];
 
         return $this->dispatch(Builder::build($command, $args));
     }
@@ -71,9 +68,8 @@ trait ApiChannelTrait
      */
     public function unSubscribe(...$channels)
     {
-        // TODO: Implement unSubscribe() method.
         $command = Enum::UNSUBSCRIBE;
-        $args = $channels;
+        $args = $channels?:[];
 
         return $this->dispatch(Builder::build($command, $args));
     }
@@ -82,12 +78,11 @@ trait ApiChannelTrait
      * @override
      * @inheritDoc
      */
-    public function subscribe(...$channels)
+    public function subscribe($channel, ...$channels)
     {
-        // TODO: Implement subscribe() method.
         $command = Enum::SUBSCRIBE;
-        $args = $channels;
+        array_unshift($channels, $channel);
 
-        return $this->dispatch(Builder::build($command, $args));
+        return $this->dispatch(Builder::build($command, $channels));
     }
 }

@@ -394,11 +394,12 @@ interface ApiKeyValInterface
     /**
      * @doc https://redis.io/commands/scan
      * @since 2.8.0
-     * @param $cursor
-     * @param array $options
+     * @param integer $cursor
+     * @param string $match
+     * @param integer $count
      * @return mixed
      */
-    public function scan($cursor, array $options = []);
+    public function scan($cursor, $match = '*', $count = 1000);
 
     /**
      * @doc https://redis.io/commands/sort

@@ -580,11 +580,18 @@ trait ApiKeyValTrait
      * @override
      * @inheritDoc
      */
-    public function scan($cursor, array $options = [])
+    public function scan($cursor, $match = '*', $count = 1000)
     {
         $command = Enum::SCAN;
         $args = [$cursor];
-        $args = array_merge($args, $options);
+        if ($match) {
+            $args[] = 'MATCH';
+            $args[] = $match;
+        }
+        if ($count) {
+            $args[] = "COUNT";
+            $args[] = $count;
+        }
 
         return $this->dispatch(Builder::build($command, $args));
     }
@@ -596,6 +603,12 @@ trait ApiKeyValTrait
     public function sort($key, array $options = [])
     {
         $command = Enum::SORT;
+        $limit = isset($options['limit']) ? $options['limit'] : false;
+        $pattern = isset($options['pattern']) ? $options['pattern'] : false;
+        $getPatterns = isset($options['get_patterns']) ? $options['get_patterns'] : false;
+        $asc = isset($options['asc']) ? 'asc' : 'desc';
+        $alpha = isset($options['alpha']) ? 'alpha' : false;
+        $store = isset($options['store']) ? $options['store'] : false;
         $args = [$key];
         $args = array_merge($args, $options);
 

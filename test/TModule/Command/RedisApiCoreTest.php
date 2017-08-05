@@ -12,23 +12,6 @@ class RedisApiCoreTest extends TModule
     use RedisTrait;
 
     /**
-     * @group ignored
-     * @dataProvider redisProvider
-     * @param RedisInterface $redis
-     */
-    public function testRedis_auth(RedisInterface $redis)
-    {
-        //TODO: Implementation
-        $this->checkRedisVersionedCommand($redis, '1.0.0', function(RedisInterface $redis) {
-            $params = [];
-
-            return Promise::doResolve()->then(function () use ($redis, $params) {
-
-            });
-        });
-    }
-
-    /**
      * @group passed
      * @dataProvider redisProvider
      * @param RedisInterface $redis
@@ -85,6 +68,7 @@ class RedisApiCoreTest extends TModule
             $params = [];
 
             return Promise::doResolve()->then(function () use ($redis, $params) {
+                $this->markTestIncomplete();
 //                return $redis->sync();
             });
         });
@@ -222,6 +206,7 @@ class RedisApiCoreTest extends TModule
             $params = [];
 
             return Promise::doResolve()->then(function () use ($redis, $params) {
+                $this->markTestIncomplete();
 //                $redis->slowLog();
             });
         });

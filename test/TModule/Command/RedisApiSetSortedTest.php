@@ -140,6 +140,7 @@ class RedisApiSetSortedTest extends TModule
     public function testRedis_zInterStore(RedisInterface $redis)
     {
         //TODO: Implementation
+        $this->markTestIncomplete();
         $this->checkRedisVersionedCommand($redis, '2.0.0', function(RedisInterface $redis) {
             return Promise::doResolve()->then(function () use ($redis) {
 
@@ -725,7 +726,8 @@ class RedisApiSetSortedTest extends TModule
      */
     public function testRedis_zScore(RedisInterface $redis)
     {
-        //TODO: Impementations
+        //TODO: Implementation
+        $this->markTestIncomplete();
         $this->checkRedisVersionedCommand($redis, '1.2.0', function(RedisInterface $redis) {
             return Promise::doResolve();
        });
@@ -738,7 +740,8 @@ class RedisApiSetSortedTest extends TModule
      */
     public function testRedis_zUnionScore(RedisInterface $redis)
     {
-        //TODO: Impementations        
+        //TODO: Implementation
+        $this->markTestIncomplete();
         $this->checkRedisVersionedCommand($redis, '2.0.0', function(RedisInterface $redis) {
             return Promise::doResolve();
        });
